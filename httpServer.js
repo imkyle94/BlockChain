@@ -53,6 +53,13 @@ function initHttpServer() {
         })
     );
 
+    // passport setting
+    passportConfig();
+    // passport 설정 선언(req에 passport 설정 삽입) 위 use.session이라고 보면 댐
+    app.use(passport.initialize());
+    // req.session 에 passport 정보 저장 (req.session.num = 1 이런거라고 보면 댐)
+    app.use(passport.session());
+
     // URL과 라우터 매칭
     app.use("/", indexRouter);
     app.use("/auth", authRouter);
