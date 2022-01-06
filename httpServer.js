@@ -45,7 +45,7 @@ function initHttpServer() {
     const app = express();
 
     // build 폴더 지정
-    app.use("/", express.static(path.join(__dirname, "../build")));
+    app.use("/", express.static(path.join(__dirname, "./build")));
 
     app.use(bodyParser.json());
     app.use(express.json());
