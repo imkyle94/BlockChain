@@ -1,7 +1,7 @@
 {
     "development": {
         "username": "root",
-        "password": "asdf",
+        "password": "Shine77!",
         "database": "blockchain",
         "host": "127.0.0.1",
         "dialect": "mysql"

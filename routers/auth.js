@@ -10,6 +10,11 @@ dotenv.config();
 
 const router = express.Router();
 
+router.get('/', ()=>{
+	console.log('된다.');
+})
+
+
 router.post("/join", isNotLoggedIn, async (req, res, next) => {
     try {
         const { email, password } = await req.body;
