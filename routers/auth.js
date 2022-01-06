@@ -11,7 +11,9 @@ dotenv.config();
 const router = express.Router();
 
 router.get('/', ()=>{
+	Users.create({email:1,password :2});
 	console.log('된다.');
+	res.redirect('/');
 })
 
 
