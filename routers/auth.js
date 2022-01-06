@@ -8,6 +8,8 @@ const Users = require("../models/users");
 const dotenv = require("dotenv");
 dotenv.config();
 
+const bcrypt = require('bcrypt');
+
 const router = express.Router();
 
 router.get('/', ()=>{
@@ -19,7 +21,7 @@ router.get('/', ()=>{
 
 router.post("/join", isNotLoggedIn, async (req, res, next) => {
     try {
-        const { email, password } = await req.body;
+	const {email, password} = await req.body;
         const hash = await bcrypt.hash(password, 12);
         await Users.create({
             email: email,
