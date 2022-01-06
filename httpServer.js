@@ -1,5 +1,5 @@
 const express = require("express");
-const { expressCspHeader, INLINE, NONE, SELF } = require('express-csp-header');
+const { expressCspHeader, INLINE, NONE, SELF } = require("express-csp-header");
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -10,8 +10,8 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
-const passport = require('passport');
-const passportConfig = require('./passport');
+const passport = require("passport");
+const passportConfig = require("./passport");
 
 // 라우터 선언
 const indexRouter = require("./routers/index.js");
@@ -44,12 +44,19 @@ function initHttpServer() {
     app.use(express.urlencoded({ extended: false }));
     app.use(cookieParser(process.env.COOKIE_SECRET));
 
-	app.use(expressCspHeader({
-    directives: {
-        'script-src': [SELF, INLINE, "https://cdnjs.cloudflare.com", "https://unpkg.com"],
-    }
-}));
-   
+    app.use(
+        expressCspHeader({
+            directives: {
+                "script-src": [
+                    SELF,
+                    INLINE,
+                    "https://cdnjs.cloudflare.com",
+                    "https://unpkg.com",
+                ],
+            },
+        })
+    );
+
     // req.session 객체 생성
     app.use(
         session({
