@@ -5,8 +5,13 @@ const Users = require("../models/users.js");
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-    res.send("Block Chain!");
+router.get("/", async (req, res, next) => {
+    try {
+        res.sendFile(path.join(__dirname, "../../build/index.html"));
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
 });
 
 router.get("/userSession", async (req, res) => {

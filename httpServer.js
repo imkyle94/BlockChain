@@ -4,6 +4,8 @@ const { expressCspHeader, INLINE, NONE, SELF } = require("express-csp-header");
 const dotenv = require("dotenv");
 dotenv.config();
 
+const path = require("path");
+
 const { sequelize } = require("./models/index.js");
 
 const bodyParser = require("body-parser");
@@ -16,6 +18,8 @@ const passportConfig = require("./passport");
 // 라우터 선언
 const indexRouter = require("./routers/index.js");
 const authRouter = require("./routers/auth");
+// 모든 URL에 대한 Router
+const otherRouter = require("./routers/other.js");
 
 // 블록체인 관련
 const { getBlocks, nextBlock, getVersion } = require("./chainedBlock.js");
@@ -39,6 +43,10 @@ sequelize
 
 function initHttpServer() {
     const app = express();
+
+    // build 폴더 지정
+    app.use("/", express.static(path.join(__dirname, "../build")));
+
     app.use(bodyParser.json());
     app.use(express.json());
     app.use(express.urlencoded({ extended: false }));
@@ -80,6 +88,7 @@ function initHttpServer() {
     // URL과 라우터 매칭
     app.use("/", indexRouter);
     app.use("/auth", authRouter);
+    app.use(otherRouter);
 
     //추가
     app.post("/addPeers", (req, res) => {
