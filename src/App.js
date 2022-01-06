@@ -10,14 +10,14 @@ function App() {
     const [비밀번호, 비밀번호변경] = useState(0);
 
     const { register, handleSubmit } = useForm();
-	
 
-	const onSubmit = (data) => {
-		axios
-		.post('http://localhost:3001/auth/join',data)
-		.then(res => console.log('성공'));
-		.catch(err => console.log('실패'));
-	};
+    const onSubmit = async (data) => {
+        try {
+            await axios.post("http://localhost:3001/auth/join", data);
+        } catch (err) {
+            console.log("실패");
+        }
+    };
 
     return (
         <div>
