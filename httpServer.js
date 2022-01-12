@@ -1,8 +1,9 @@
 const express = require("express");
-const { expressCspHeader, INLINE, NONE, SELF } = require("express-csp-header");
 
 const dotenv = require("dotenv");
 dotenv.config();
+
+const morgan = require("morgan");
 
 const path = require("path");
 
@@ -22,7 +23,12 @@ const authRouter = require("./routers/auth");
 const otherRouter = require("./routers/other.js");
 
 // 블록체인 관련
-const { getBlocks, nextBlock, getVersion } = require("./chainedBlock.js");
+const {
+  getBlocks,
+  nextBlock,
+  getVersion,
+  createGenesisBlock,
+} = require("./chainedBlock.js");
 const { addBlock } = require("./checkValidBlock");
 const { connectToPeers, getSockets } = require("./p2pServer.js");
 const { getPublicKeyFromWallet, initWallet } = require("./encryption");
@@ -52,19 +58,6 @@ function initHttpServer() {
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser(process.env.COOKIE_SECRET));
 
-  app.use(
-    expressCspHeader({
-      directives: {
-        "script-src": [
-          SELF,
-          INLINE,
-          "https://cdnjs.cloudflare.com",
-          "https://unpkg.com",
-        ],
-      },
-    })
-  );
-
   // req.session 객체 생성
   app.use(
     session({
@@ -86,6 +79,7 @@ function initHttpServer() {
   app.use(passport.session());
 
   // URL과 라우터 매칭
+  app.use(morgan("dev"));
   app.use("/", indexRouter);
   app.use("/auth", authRouter);
   app.use(otherRouter);
@@ -93,6 +87,19 @@ function initHttpServer() {
   //추가
   // 보통은 wss, ws 두개를 구분 짓겠지만
   // 여기서 ws 익스포트한 함수를 불러오네
+
+  app.post("/bbb", (req, res) => {
+    while (1 == 1) {
+      const data = req.body.data || ["aa"];
+      // console.log(data);
+      const block = nextBlock(data);
+      const block2 = addBlock(block);
+      // console.log(block);
+      console.log(block2);
+      // res.send(getBlocks());
+    }
+  });
+
   app.post("/addPeers", (req, res) => {
     //   여기 data가 ws에서 연결 주소를 나타낸다
     const data = req.body.data || [];
@@ -100,6 +107,7 @@ function initHttpServer() {
     connectToPeers(data);
     res.send(data);
   });
+
   app.get("/peers", (req, res) => {
     let sockInfo = [];
 
@@ -109,8 +117,14 @@ function initHttpServer() {
     res.send(sockInfo);
   });
 
-  app.get("/blocks", (req, res) => {
-    res.send(getBlocks());
+  app.get("/blocks", async (req, res) => {
+    try {
+      console.log("여기야 여기");
+      console.log(getBlocks());
+      res.send(getBlocks());
+    } catch (err) {
+      console.log("안대 씨발");
+    }
   });
   app.get("/version", (req, res) => {
     res.send(getVersion());

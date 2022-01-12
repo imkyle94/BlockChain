@@ -1,36 +1,24 @@
 import "./App.css";
-import { Button, Form } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import axios from "axios";
+import React from "react";
+import { Link } from "react-router-dom";
 
 function App() {
-    const [아이디, 아이디변경] = useState(0);
-    const [비밀번호, 비밀번호변경] = useState(0);
-
-    const { register, handleSubmit } = useForm();
-
-    const onSubmit = async (data) => {
-        try {
-            await axios.post("http://localhost:3001/auth/join", data);
-        } catch (err) {
-            console.log("실패");
-        }
-    };
-
-    return (
-        <div>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <input {...register("email")} />
-                <input {...register("password")} />
-                <input type="submit" />
-            </form>
-            <Button variant="primary" type="submit">
-                채굴 시작
-            </Button>
-        </div>
-    );
+  return (
+    <div>
+      <nav
+        style={{
+          borderBottom: "solid 1px",
+          paddingBottom: "1rem",
+        }}
+      >
+        <h1>프로젝트 뿅</h1>
+        <Link to="/1blocks">블럭보기</Link> |{" "}
+        <Link to="/1expenses">그냥 만들어봄</Link>
+        <br></br>
+        <Link to="/join">회원가입</Link> | <Link to="/login">로그인</Link>
+      </nav>
+    </div>
+  );
 }
 
 export default App;
