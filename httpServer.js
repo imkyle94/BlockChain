@@ -19,6 +19,7 @@ const passportConfig = require("./passport");
 // 라우터 선언
 const indexRouter = require("./routers/index.js");
 const authRouter = require("./routers/auth");
+const apisRouter = require("./routers/apis");
 // 모든 URL에 대한 Router
 const otherRouter = require("./routers/other.js");
 
@@ -32,6 +33,7 @@ const {
 const { addBlock } = require("./checkValidBlock");
 const { connectToPeers, getSockets } = require("./p2pServer.js");
 const { getPublicKeyFromWallet, initWallet } = require("./encryption");
+const { dblization } = require("./dblization");
 
 const http_port = process.env.HTTP_PORT || 3001;
 
@@ -82,6 +84,7 @@ function initHttpServer() {
   app.use(morgan("dev"));
   app.use("/", indexRouter);
   app.use("/auth", authRouter);
+  app.use("/apis", apisRouter);
   app.use(otherRouter);
 
   //추가
@@ -153,6 +156,8 @@ function initHttpServer() {
       res.send("empty address!");
     }
   });
+
+  dblization();
 
   // ERROR 메세지 창
   app.use((err, req, res, next) => {

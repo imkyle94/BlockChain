@@ -7,10 +7,10 @@ module.exports = class Users extends Sequelize.Model {
         email: {
           primaryKey: true,
           type: Sequelize.STRING(45),
-          allowNull: false,
+          allowNull: true,
         },
         password: {
-          allowNull: false,
+          allowNull: true,
           type: Sequelize.STRING(500),
         },
       },

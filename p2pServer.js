@@ -11,7 +11,7 @@ const { createHash, addBlock } = require("./chainedBlock");
 // 봐야할 것은 개발 환경 조차 매개변수 처리를 해 활용이 가능하게 미리 사전에 구성한 것.
 // 이거 내가 사전처리를 해야겠다고 말했던 부분 좋은 예제
 
-//p2p서버 초기화한는 하뭇
+//웹소켓 서버 시작 부분
 function initP2PServer(test_port) {
   const server = new WebSocket.Server({ port: test_port });
   server.on("connection", (ws) => {
@@ -58,6 +58,8 @@ function broadcast(message) {
   });
 }
 
+// 웹소켓 부분
+// initConnection이 소켓, 소켓서버 둘다 들어가네 이거 확인해야겠다
 function connectToPeers(newPeers) {
   newPeers.forEach((peer) => {
     const ws = new WebSocket(peer);

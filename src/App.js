@@ -16,6 +16,8 @@ function App() {
         <Link to="/1expenses">그냥 만들어봄</Link>
         <br></br>
         <Link to="/join">회원가입</Link> | <Link to="/login">로그인</Link>
+        <br></br>
+        <Link to="/apis/openapi">Openapi</Link>
       </nav>
     </div>
   );

@@ -8,6 +8,8 @@ import Join from "./Join";
 import Login from "./Login";
 import Block from "./Block";
 import Blocks from "./routes/blocks";
+import Openapi from "./Openapi";
+
 // import Home from "./Home";
 // import Teams from "./Teams";
 // import Team from "./Teams";
@@ -31,6 +33,7 @@ render(
         <Route path="1blocks" element={<Blocks />}></Route>
       </Route>
       <Route path="/login" element={<Login />}></Route>
+      <Route path="/apis/openapi" element={<Openapi />}></Route>
 
       {/* 경로 없이 라우터 쓸 수 있는데 언제쓰지 */}
       {/* <Route index element={<Home />} /> */}
