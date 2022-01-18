@@ -33,7 +33,8 @@ const {
 const { addBlock } = require("./checkValidBlock");
 const { connectToPeers, getSockets } = require("./p2pServer.js");
 const { getPublicKeyFromWallet, initWallet } = require("./encryption");
-const { dblization } = require("./dblization");
+const { dblization, fsing } = require("./dblization");
+const { JH } = require("./JH");
 
 const http_port = process.env.HTTP_PORT || 3001;
 
@@ -146,6 +147,7 @@ function initHttpServer() {
     res.send({ msg: "Stop Server!" });
     process.exit();
   });
+
   app.get("/address", (req, res) => {
     initWallet();
     const address = getPublicKeyFromWallet().toString();
@@ -156,8 +158,6 @@ function initHttpServer() {
       res.send("empty address!");
     }
   });
-
-  dblization();
 
   // ERROR 메세지 창
   app.use((err, req, res, next) => {
@@ -171,3 +171,4 @@ function initHttpServer() {
 }
 
 initHttpServer();
+JH();

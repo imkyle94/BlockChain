@@ -19,11 +19,52 @@ const Blocks = require("../models/blocks");
 const dotenv = require("dotenv");
 dotenv.config();
 
+const { dbscheme } = require("../dblization");
+const { getBlocks, createGenesisBlock } = require("../chainedBlock");
+
 const router = express.Router();
 
 // 아직은 로그인 미들웨어 안쓰지만 나중에 쓸 수 있으니
 router.get("/", () => {
   //여기에 로딩이 되도록 적어야겠네
+});
+
+router.post("/make", async (req, res) => {
+  try {
+    // 꼭 비동기로 써야되는지는 모르겠는데?
+    // 여기서 처리 나눠야지
+    if (req.body.button) {
+      const data = getBlocks();
+      const header = data[0].header;
+
+      const pratice = Object.assign(header);
+      console.log(pratice);
+      const data2 = dbscheme(header);
+      const data3 = JSON.stringify(header);
+      res.json(data2);
+    } else {
+      // const data2 = dbscheme(data.header);
+      res.json("ok");
+    }
+
+    // console.log(req.body.button);
+    // else 처리해줘야함
+  } catch (err) {
+    console.log("make 처리 오류");
+  }
+});
+
+router.post("/make2", async (req, res) => {
+  try {
+    // 꼭 비동기로 써야되는지는 모르겠는데?
+    // 여기서 처리 나눠야지
+    console.log(req.body);
+    // 여기서 나타내주는거 쓰면 됨
+    // 대신 여기서 stringfy 쓰자
+    console.log("들어오면 굳");
+  } catch (err) {
+    console.log("make 처리 오류");
+  }
 });
 
 router.post("/openapi", async (req, res) => {

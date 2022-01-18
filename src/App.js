@@ -17,7 +17,7 @@ function App() {
         <br></br>
         <Link to="/join">회원가입</Link> | <Link to="/login">로그인</Link>
         <br></br>
-        <Link to="/apis/openapi">Openapi</Link>
+        <Link to="/apis">Apis</Link>
       </nav>
     </div>
   );

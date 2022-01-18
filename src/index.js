@@ -8,7 +8,9 @@ import Join from "./Join";
 import Login from "./Login";
 import Block from "./Block";
 import Blocks from "./routes/blocks";
-import Openapi from "./Openapi";
+import Apis from "./Apis";
+import Make from "./routes/apis/Make";
+import Openapi from "./routes/apis/Openapi";
 
 // import Home from "./Home";
 // import Teams from "./Teams";
@@ -33,7 +35,10 @@ render(
         <Route path="1blocks" element={<Blocks />}></Route>
       </Route>
       <Route path="/login" element={<Login />}></Route>
-      <Route path="/apis/openapi" element={<Openapi />}></Route>
+      <Route path="/apis" element={<Apis />}>
+        <Route path="openapi" element={<Openapi />}></Route>
+        <Route path="make" element={<Make />}></Route>
+      </Route>
 
       {/* 경로 없이 라우터 쓸 수 있는데 언제쓰지 */}
       {/* <Route index element={<Home />} /> */}

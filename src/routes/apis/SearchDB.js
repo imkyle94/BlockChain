@@ -8,7 +8,7 @@ import { useState } from "react";
 import { Navigate, Outlet, Link } from "react-router-dom";
 import axios from "axios";
 
-function Join() {
+function SearchDB() {
   const [isRedirect, setIsRedirect] = useState(false);
   const { register, handleSubmit } = useForm();
 
@@ -38,4 +38,4 @@ function Join() {
   );
 }
 
-export default Join;
+export default SearchDB;
