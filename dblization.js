@@ -80,6 +80,38 @@ function dbscheme(data) {
   return result;
 }
 
+function makedb(data) {
+  // 두 객체 비교
+  const blocks = getBlocks();
+  // console.log(blocks[0].header);
+  const keys = Object.keys(blocks[0].header);
+  const values = Object.values(data);
+  console.log(keys.length);
+  let result = {};
+
+  for (i = 0; i < keys.length; i++) {
+    result[keys[i]] = `{ allowNull : true,  type : Sequelize.${values[i]} },`;
+  }
+
+  console.log(result);
+  return result;
+  // console.log(keys);
+  // console.log(values);
+
+  // 이거 처리해주는 것도 괜찮은 컨텐츠다
+  // const data = { name: "email", value: "a@11`1a" };
+  // args[data.name] = data.value;
+
+  // 이건 굳이 필요가 없네;;
+  // const args1 = {};
+  // const db = block[0].header;
+  // for (a in db) {
+  //   args1[a] = db[a];
+  //   console.log(a);
+  // }
+  // console.log(args1);
+}
+
 function fsing() {
   const date = new Date().toTimeString();
   const b = { a: "a", b: "b" };
@@ -133,4 +165,4 @@ function dblization() {
   // Blocks.create(db);
 }
 
-module.exports = { dblization, jsonation, fsing, dbscheme };
+module.exports = { dblization, jsonation, fsing, dbscheme, makedb };

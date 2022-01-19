@@ -19,7 +19,7 @@ const Blocks = require("../models/blocks");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const { dbscheme } = require("../dblization");
+const { dbscheme, makedb } = require("../dblization");
 const { getBlocks, createGenesisBlock } = require("../chainedBlock");
 
 const router = express.Router();
@@ -54,17 +54,15 @@ router.post("/make", async (req, res) => {
   }
 });
 
-router.post("/make2", async (req, res) => {
-  try {
-    // 꼭 비동기로 써야되는지는 모르겠는데?
-    // 여기서 처리 나눠야지
-    console.log(req.body);
-    // 여기서 나타내주는거 쓰면 됨
-    // 대신 여기서 stringfy 쓰자
-    console.log("들어오면 굳");
-  } catch (err) {
-    console.log("make 처리 오류");
-  }
+router.post("/make2", (req, res) => {
+  // 꼭 비동기로 써야되는지는 모르겠는데?
+  // 여기서 처리 나눠야지
+  const data = req.body;
+  const data2 = makedb(data);
+  // console.log(data2);
+  // 여기서 나타내주는거 쓰면 됨
+  // 대신 여기서 stringfy 쓰자
+  res.json(data2);
 });
 
 router.post("/openapi", async (req, res) => {
@@ -73,7 +71,6 @@ router.post("/openapi", async (req, res) => {
     // console.log(req.body);
     const keys = Object.keys(req.body);
     const values = Object.values(req.body);
-
     for (key in req.body) {
       // 될 줄 알았다
       // 막아논듯 씨발 왜 안대
