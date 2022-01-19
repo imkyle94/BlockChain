@@ -11,28 +11,40 @@ const { createHash, addBlock } = require("./chainedBlock");
 // 봐야할 것은 개발 환경 조차 매개변수 처리를 해 활용이 가능하게 미리 사전에 구성한 것.
 // 이거 내가 사전처리를 해야겠다고 말했던 부분 좋은 예제
 
+// 여기 sockets에 뭐가 들어가닝?
+let sockets = [];
+
 //웹소켓 서버 시작 부분
 function initP2PServer(test_port) {
   const server = new WebSocket.Server({ port: test_port });
   server.on("connection", (ws) => {
     initConnection(ws);
   });
+
+  // server.on("connection", (ws, req) => {
+  //   const ip = req.socket.remoteAddress;
+  //   console.log(ip);
+  //   console.log(req.socket);
+  // });
+
   console.log("Listening webSocket port : " + test_port);
 }
 
-initP2PServer(6001);
+initP2PServer(6004);
 // initP2PServer(6002);
 // initP2PServer(6003);
 
-// 여기 sockets에 뭐가 들어가닝?
-let sockets = [];
-
 // 한번 봐보니, 메세지 받는 처리 등을 넣어놨겠지
+
 function initConnection(ws) {
   sockets.push(ws);
+  console.log("이거뜨는지 확인");
+  console.log(ws._socket.remoteAddress);
+  // console.log(sockets);
   initMessageHandler(ws);
   initErrorHandler(ws);
 }
+
 function getSockets() {
   return sockets;
 }
@@ -71,6 +83,19 @@ function connectToPeers(newPeers) {
     ws.on("error", (errorType) => {
       console.log("connection Failed!") + errorType;
     });
+  });
+}
+
+// 웹소켓 부분
+// initConnection이 소켓, 소켓서버 둘다 들어가네 이거 확인해야겠다
+function connectClient(peer) {
+  const ws = new WebSocket(peer);
+  ws.on("open", () => {
+    console.log("open");
+    initConnection(ws);
+  });
+  ws.on("error", (errorType) => {
+    console.log("connection Failed!") + errorType;
   });
 }
 
@@ -177,4 +202,4 @@ function closeConnection(ws) {
   sockets.splice(sockets.indexOf(ws), 1);
 }
 
-module.exports = { connectToPeers, getSockets };
+module.exports = { connectClient, connectToPeers, getSockets };

@@ -12,7 +12,7 @@ function Blocks() {
       else n = true;
       const blocks = await axios.post("http://localhost:3001/bbb", n);
 
-      // 계속 돌리는 거 할거임
+      // 계속 채굴 돌리는 거 할거임
       console.log(blocks);
     } catch (err) {
       console.log("실패");

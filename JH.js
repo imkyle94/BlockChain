@@ -6,11 +6,17 @@
 
 const { getBlocks, nextBlock } = require("./chainedBlock");
 const { addBlock } = require("./checkValidBlock");
-const { connectToPeers, getSockets } = require("./p2pServer.js");
-const { connect } = require("./routers");
+const { connectClient, connectToPeers, getSockets } = require("./p2pServer.js");
 
 function JH() {
   console.log("정호 함수~");
+
+  connectClient("ws://localhost:6004");
+  connectClient("ws://localhost:6004");
+  connectClient("ws://localhost:6004");
+
+  // connectToPeers(["ws:localhost:6001"]);
+  // connectToPeers(["ws:localhost:6001"]);
 
   var i = 0;
   while (i < 1) {
@@ -22,17 +28,24 @@ function JH() {
 
     i++;
   }
+
   const result = getBlocks();
-  console.log(result);
+  // console.log(result);
 
   // connectToPeers(["a", "b", "c"]);
-  connectToPeers(["ws://localhost:6001"]);
-  connectToPeers(["ws://localhost:6001"]);
-  connectToPeers(["ws://localhost:6001"]);
+
+  // connectToPeers(["ws://localhost:6001"]);
+  // connectToPeers(["ws://localhost:6001"]);
+
   //   connectToPeers("c");
 
-  const socket = getSockets();
-  console.log(socket);
+  // let sockInfo = [];
+
+  // getSockets().forEach((s) => {
+  //   sockInfo.push(s._socket.remoteAddress + ":" + s._socket.remotePort);
+  // });
+
+  // console.log(sockInfo);
 }
 
 module.exports = { JH };

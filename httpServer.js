@@ -31,7 +31,7 @@ const {
   createGenesisBlock,
 } = require("./chainedBlock.js");
 const { addBlock } = require("./checkValidBlock");
-const { connectToPeers, getSockets } = require("./p2pServer.js");
+const { connectToPeers, getSockets, initP2PServer } = require("./p2pServer.js");
 const { getPublicKeyFromWallet, initWallet } = require("./encryption");
 const { dblization, fsing } = require("./dblization");
 const { JH } = require("./JH");
@@ -49,7 +49,6 @@ sequelize
   .catch((err) => {
     console.error(err);
   });
-
 function initHttpServer() {
   const app = express();
 
@@ -100,7 +99,7 @@ function initHttpServer() {
       const block2 = addBlock(block);
       // console.log(block);
       console.log(block2);
-      // res.send(getBlocks());
+      res.send(getBlocks());
     }
   });
 
@@ -168,7 +167,11 @@ function initHttpServer() {
   app.listen(http_port, () => {
     console.log("Listening Http Port : " + http_port);
   });
+
+  JH();
+
+  const a = getSockets();
+  console.log(a);
 }
 
 initHttpServer();
-JH();
