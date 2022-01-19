@@ -183,9 +183,9 @@ function addBlock(bodyData) {
   Blocks.push(newBlock);
 }
 
-// addBlock(['transaction1'])
-// addBlock(['transaction2'])
-// addBlock(['transaction3'])
+// addBlock(["transaction1"]);
+// addBlock(["transaction2"]);
+// addBlock(["transaction3"]);
 // addBlock(['transaction4'])
 // addBlock(['transaction5'])
 // console.log(Blocks)
@@ -242,6 +242,7 @@ function hashMatchesDifficulty(hash, difficulty) {
   //조건에 해당되면 블록 생성
   const hashBinary = hexToBinary(hash.toUpperCase());
   //difficulty 난이도가 높아짐에 따라 0개수가 늘어남
+  console.log(difficulty);
   const requirePrefix = "0".repeat(difficulty);
   //높으면 높을수록 조건을 맞추기가 까다로워짐(nonce값과 time값이 바뀌면서 암호화값이 달라진다.)
   return hashBinary.startsWith(requirePrefix);

@@ -85,7 +85,6 @@ function initHttpServer() {
   app.use("/", indexRouter);
   app.use("/auth", authRouter);
   app.use("/apis", apisRouter);
-  app.use(otherRouter);
 
   //추가
   // 보통은 wss, ws 두개를 구분 짓겠지만
@@ -113,7 +112,7 @@ function initHttpServer() {
 
   app.get("/peers", (req, res) => {
     let sockInfo = [];
-
+    console.log("ehlsi?");
     getSockets().forEach((s) => {
       sockInfo.push(s._socket.remoteAddress + ":" + s._socket.remotePort);
     });
@@ -123,12 +122,15 @@ function initHttpServer() {
   app.get("/blocks", async (req, res) => {
     try {
       console.log("여기야 여기");
-      console.log(getBlocks());
-      res.send(getBlocks());
+      // console.log(getBlocks());
+      console.log(getSockets());
+      const data = getBlocks();
+      res.send(data);
     } catch (err) {
       console.log("안대 씨발");
     }
   });
+
   app.get("/version", (req, res) => {
     res.send(getVersion());
   });
@@ -163,6 +165,8 @@ function initHttpServer() {
     res.status(err.static || 500);
     res.send(err);
   });
+
+  app.use(otherRouter);
 
   app.listen(http_port, () => {
     console.log("Listening Http Port : " + http_port);

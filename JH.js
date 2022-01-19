@@ -4,8 +4,8 @@
 // 대신 객체 구조, db 쿼리 등은 사전 준비를 다 해놓았음
 //
 
-const { getBlocks, nextBlock } = require("./chainedBlock");
-const { addBlock } = require("./checkValidBlock");
+const { addBlock, getBlocks, nextBlock } = require("./chainedBlock");
+// const { addBlock } = require("./checkValidBlock");
 const { connectClient, connectToPeers, getSockets } = require("./p2pServer.js");
 
 function JH() {
@@ -19,17 +19,24 @@ function JH() {
   // connectToPeers(["ws:localhost:6001"]);
 
   var i = 0;
-  while (i < 1000000) {
-    //   const data = req.body.data || ["aa"];
-    const data = ["abcd"];
-    const block = nextBlock(data);
-    const block2 = addBlock(block);
-    // console.log(block2);
+  // while (i < 2000000) {
+  //   const data = req.body.data || ["aa"];
+  const data = ["abcd"];
+  // const block = nextBlock(data);
 
-    i++;
-  }
+  const result1 = addBlock(data);
+
+  console.log(block);
+  // console.log(result1);
+
+  // const block2 = await addBlock(block);
+  // console.log(block2);
+
+  // i++;
+  // }
 
   const result = getBlocks();
+  console.log(result);
   // console.log(result);
 
   // connectToPeers(["a", "b", "c"]);

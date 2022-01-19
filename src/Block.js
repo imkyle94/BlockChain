@@ -5,7 +5,8 @@ import axios from "axios";
 function Block() {
   const a = async () => {
     try {
-      await axios.get("http://localhost:3001/blocks");
+      // const data = await axios.get("http://localhost:3001/blocks");
+      // console.log(data);
       console.log("이거면 성공");
     } catch (err) {
       console.log("비동기 실패");
