@@ -326,7 +326,10 @@ function getCurrentTimestamp() {
 }
 
 function isValidTimestamp(newBlock, prevBlock) {
-  console.log("뺀거:", newBlock.header.timestamp - prevBlock.header.timestamp);
+  console.log(
+    "시간 경과:",
+    newBlock.header.timestamp - prevBlock.header.timestamp
+  );
   console.log(getCurrentTimestamp());
   //5이내에 또 만드는 걸 안되게 방지!
   if (newBlock.header.timestamp - prevBlock.header.timestamp < 5) {

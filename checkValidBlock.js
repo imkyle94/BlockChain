@@ -52,7 +52,7 @@ function isValidNewBlock(newBlock, prevBlock) {
     console.log("Invalid merkleRoot");
     return false;
   } else if (!isValidTimestamp(newBlock, prevBlock)) {
-    console.log("시간안됨요");
+    console.log("일정 시간 미만");
     return false;
   }
   console.log("성공!!");

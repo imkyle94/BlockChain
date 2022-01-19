@@ -19,7 +19,7 @@ function JH() {
   // connectToPeers(["ws:localhost:6001"]);
 
   var i = 0;
-  while (i < 1) {
+  while (i < 1000000) {
     //   const data = req.body.data || ["aa"];
     const data = ["abcd"];
     const block = nextBlock(data);
