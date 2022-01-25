@@ -14,6 +14,20 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.post("/practice", (req, res) => {
+  const number = req.body;
+  console.log(number);
+
+  n1();
+  //
+  //
+  // 함수 넣기
+  // 세션 처리 넣어보자
+
+  // 화면에 계속 뜨는 것은 웹소켓, 비동기?
+  // 생각해보자
+  res.send("채굴 시작!");
+});
 router.get("/userSession", async (req, res) => {
   try {
     const user = await Users.findOne({

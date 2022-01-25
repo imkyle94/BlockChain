@@ -2,7 +2,7 @@
 const p2p_port = process.env.P2P_PORT || 6001;
 // const { response } = require("express")
 const WebSocket = require("ws");
-const { createHash, addBlock } = require("./chainedBlock");
+const { createHash, addBlock1 } = require("./chainedBlock");
 // const { getLastBlock } = require("./chainedBlock")
 
 // 함수 나열을 해봅시다
@@ -152,7 +152,7 @@ function handleBlockChainResponse(message) {
     //받은 마지막 블록의 이전해시값이 내 마지막 블럭일 때
     //이런경우에는 내꺼에다가 마지막 블록을 추가해주면 됨
     if (createHash(latesMyBlock) === latestReceiveBlock.header.previousHash) {
-      if (addBlock(latestReceiveBlock)) {
+      if (addBlock1(latestReceiveBlock)) {
         broadcast(responseLastestMsg());
       } else {
         console.log("Invalid Block");

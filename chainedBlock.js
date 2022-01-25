@@ -178,7 +178,7 @@ function nextBlock(bodyData) {
 // const block1 = nextBlock(["tranjaction1"])
 // console.log(block1)
 
-function addBlock(bodyData) {
+function addBlock1(bodyData) {
   const newBlock = nextBlock(bodyData);
   Blocks.push(newBlock);
 }
@@ -353,7 +353,7 @@ module.exports = {
   Blocks,
   getLastBlock,
   nextBlock,
-  addBlock,
+  addBlock1,
   getVersion,
   createGenesisBlock,
 }; //내보내주는거

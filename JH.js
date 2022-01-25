@@ -4,19 +4,25 @@
 // 대신 객체 구조, db 쿼리 등은 사전 준비를 다 해놓았음
 //
 
-const { addBlock, getBlocks, nextBlock } = require("./chainedBlock");
-// const { addBlock } = require("./checkValidBlock");
+const { Transaction } = require("sequelize/dist");
+const { addBlock1, getBlocks, nextBlock } = require("./chainedBlock");
+const { addBlock } = require("./checkValidBlock");
 const { connectClient, connectToPeers, getSockets } = require("./p2pServer.js");
 
+let transaction = [];
+
+function getTransaction() {
+  return transaction;
+}
+
+function makeTransaction() {}
+
 function JH() {
-  console.log("정호 함수~");
+  console.log("정호 함수");
 
-  connectClient("ws://localhost:6004");
-  connectClient("ws://localhost:6004");
-  connectClient("ws://localhost:6004");
+  // 시간에 따른 트랜잭션 생성함수를 만들자
 
-  // connectToPeers(["ws:localhost:6001"]);
-  // connectToPeers(["ws:localhost:6001"]);
+  //
 
   var i = 0;
   // while (i < 2000000) {
@@ -24,9 +30,11 @@ function JH() {
   const data = ["abcd"];
   // const block = nextBlock(data);
 
-  const result1 = addBlock(data);
+  const result1 = addBlock1(data);
 
-  console.log(block);
+  console.log(result1);
+
+  // addBlock();
   // console.log(result1);
 
   // const block2 = await addBlock(block);
